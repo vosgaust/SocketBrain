@@ -15,7 +15,7 @@ const _onConnection = function(socket) {
   };
 
   const _onSyncRequest = function(payload) {
-    console.log('requesting sync')
+    console.log(`User: ${payload.userID} has requested sync`);
     socket.broadcast.emit('syncrequest', payload);
   };
 
@@ -23,11 +23,17 @@ const _onConnection = function(socket) {
     socket.broadcast.emit('sync', payload);
   };
 
+  const _onNewChunk = function(payload) {
+    console.log(`User ${payload.userID} has created a new chunk`);
+    socket.broadcast.emit('newchunk', payload);
+  };
+
   console.log('A user has connected');
   socket.on('joinroom', _onJoinRoom);
   socket.on('setvalue', _onSetValue);
   socket.on('requestsync', _onSyncRequest);
   socket.on('sync', _onSync);
+  socket.on('newchunk', _onNewChunk);
 };
 
 io.on('connection', _onConnection);
