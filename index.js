@@ -11,7 +11,8 @@ const _onConnection = function(socket) {
   };
 
   const _onSetValue = function(payload) {
-    io.sockets.in(payload.room).emit('setValue', payload);
+    console.log('sending setvalue')
+    io.sockets.in(payload.room).emit('setvalue', payload);
   };
 
   const _onSyncRequest = function(payload) {
